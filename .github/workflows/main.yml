@@ -21,6 +21,10 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           enable-AzPSSession: true 
 
+      - name: Install Az Data Factory module
+        run: Install-Module -Name Az.DataFactory -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
+        shell: pwsh
+
       # Stop all running triggers
       - name: Stop Triggers
         shell: pwsh
