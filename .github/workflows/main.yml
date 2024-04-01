@@ -43,7 +43,7 @@ jobs:
         with: 
           scope: 'resourcegroup'
           resourceGroupName: 'test-adf-deploy'
-          template: ./test-adf-deploy-dev/ARMTemplateForFactory.json
+          template: ARMTemplateForFactory.json
           deploymentMode: Incremental
           parameters: factoryName=test-adf-deploy-prod
           
