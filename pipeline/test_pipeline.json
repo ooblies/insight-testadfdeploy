@@ -4,6 +4,7 @@
 		"activities": [
 			{
 				"name": "Set variable",
+				"description": "deploy",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"policy": {
