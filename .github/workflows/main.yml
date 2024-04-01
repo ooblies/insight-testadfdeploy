@@ -19,28 +19,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           enable-AzPSSession: true 
-          
-      # Manually install Powershell module to work around error in data-factory-deploy-action
-      - name: Install Az PowerShell module
-        run: Install-Module -Name Az.DataFactory -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
-        shell: pwsh
-      - name: Install Az PowerShell module
-        run: Install-Module -Name Az.Billing -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
-        shell: pwsh
-      - name: Install Az PowerShell module
-        run: Install-Module -Name Az.DataLakeAnalytics -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
-        shell: pwsh
-      - name: Install Az PowerShell module
-        run: Install-Module -Name Az.DataLakeStore -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
-        shell: pwsh
-      - name: Install Az PowerShell module
-        run: Install-Module -Name Az.Storage -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
-        shell: pwsh
-
-      #- name: Download ARM template
-        #uses: actions/download-artifact@v3
-        #with:
-          #name: adf-armtemplate
 
       # Deploy ARM Template
       - name: Deploy ARM Template
@@ -50,15 +28,4 @@ jobs:
           resourceGroupName: 'test-adf-deploy'
           template: ./test-adf-deploy-dev/ARMTemplateForFactory.json
           deploymentMode: Incremental
-          parameters: factoryName=test-adf-deploy-prod
-          
-      # Deploy ARM template to new data factory
-      #- name: Deploy resources
-        #uses: Azure/data-factory-deploy-action@v1.2.0
-        #with:
-          #resourceGroupName: Dudziak
-          #dataFactoryName: test-adf-deploy-prod
-          #armTemplateFile: ./test-adf-deploy-dev/ARMTemplateForFactory.json
-          # armTemplateParametersFile: myArmTemplateParameters.json [optional]
-          # additionalParameters: 'key1=value key2=value keyN=value' [optional]
-          # skipAzModuleInstallation: true [optional]
+          parameters: factoryName=test-adf-deploy-prod          
