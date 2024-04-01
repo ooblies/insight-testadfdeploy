@@ -52,10 +52,10 @@ jobs:
         run: Install-Module -Name Az.Storage -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
         shell: pwsh
 
-      - name: Download ARM template
-        uses: actions/download-artifact@v3
-        with:
-          name: adf-armtemplate
+      #- name: Download ARM template
+        #uses: actions/download-artifact@v3
+        #with:
+          #name: adf-armtemplate
 
       # Deploy ARM template to new data factory
       - name: Deploy resources
