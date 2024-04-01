@@ -18,8 +18,8 @@ jobs:
         uses: Azure/data-factory-deploy-action@v1.2.0
         with:
           resourceGroupName: Dudziak
-          dataFactoryName: testdeployadf_prod
+          dataFactoryName: test-adf-deploy-prod
           armTemplateFile: myArmTemplate.json
           # armTemplateParametersFile: myArmTemplateParameters.json [optional]
           # additionalParameters: 'key1=value key2=value keyN=value' [optional]
-          # skipAzModuleInstallation: true [optional]
+          skipAzModuleInstallation: true [optional]
