@@ -8,12 +8,19 @@ jobs:
   deploy-adf:
     runs-on: windows-latest
     steps:
+      # Log into Azure via Service Principal
       - name: Login via Az module
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           enable-AzPSSession: true 
-    
+          
+      # Manually install AZ Powershell module to work around error in data-factory-deploy-action
+      - name: Install Az PowerShell module
+        run: Install-Module -Name Az.DataFactory -Scope CurrentUser -Repository PSGallery -Force
+        shell: pwsh
+
+      # Deploy ARM template to new data factory
       - name: Deploy resources
         uses: Azure/data-factory-deploy-action@v1.2.0
         with:
