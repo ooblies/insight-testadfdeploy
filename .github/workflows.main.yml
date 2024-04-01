@@ -1,0 +1,44 @@
+name: pushADFtoPROD
+on:
+  workflow_dispatch
+  #push:
+    #branches:
+      #- adf_publish
+jobs:
+  deploy-adf:
+    runs-on: windows-latest
+    steps:
+      # Log into Azure via Service Principal
+      - name: Login via Az module
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true 
+          
+      # Manually install Powershell module to work around error in data-factory-deploy-action
+      - name: Install Az PowerShell module
+        run: Install-Module -Name Az.DataFactory -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
+        shell: pwsh
+      - name: Install Az PowerShell module
+        run: Install-Module -Name Az.Billing -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
+        shell: pwsh
+      - name: Install Az PowerShell module
+        run: Install-Module -Name Az.DataLakeAnalytics -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
+        shell: pwsh
+      - name: Install Az PowerShell module
+        run: Install-Module -Name Az.DataLakeStore -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
+        shell: pwsh
+      - name: Install Az PowerShell module
+        run: Install-Module -Name Az.Storage -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
+        shell: pwsh
+
+      # Deploy ARM template to new data factory
+      - name: Deploy resources
+        uses: Azure/data-factory-deploy-action@v1.2.0
+        with:
+          resourceGroupName: Dudziak
+          dataFactoryName: test-adf-deploy-prod
+          armTemplateFile: ARMTemplateForFactory.json
+          # armTemplateParametersFile: myArmTemplateParameters.json [optional]
+          # additionalParameters: 'key1=value key2=value keyN=value' [optional]
+          # skipAzModuleInstallation: true [optional]
