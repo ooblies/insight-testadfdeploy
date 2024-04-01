@@ -19,7 +19,8 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Set variable1",
+						"name": "Set variable",
+						"description": "deploy",
 						"type": "SetVariable",
 						"dependsOn": [],
 						"policy": {
