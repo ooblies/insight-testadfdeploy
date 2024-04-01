@@ -5,26 +5,6 @@ on:
     #branches:
       #- adf_publish
 jobs:
-  build:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
-  
-        - name: Validate ARM template
-          uses: Azure/data-factory-validate-action@v1.1.5
-         
-        - name: Export Azure Data Factory
-          id: export
-          uses: Azure/data-factory-export-action@v1.2.0
-               
-        - name: Publish ARM template
-          uses: actions/upload-artifact@v2
-          with:
-            name: adf-armtemplate
-            path: ${{ steps.export.outputs.arm-template-directory }}
-            if-no-files-found: error
-
   deploy:
     runs-on: windows-latest
     steps:
@@ -57,13 +37,23 @@ jobs:
         #with:
           #name: adf-armtemplate
 
+      # Deploy ARM Template
+      - name: Deploy ARM Template
+        uses: Azure/arm-deploy@v1.0.6
+        with: 
+          scope: 'resourcegroup'
+          resourceGroupName: 'test-adf-deploy'
+          template: ./test-adf-deploy-dev/ARMTemplateForFactory.json
+          deploymentMode: Incremental
+          parameters: factoryName=test-adf-deploy-prod
+          
       # Deploy ARM template to new data factory
-      - name: Deploy resources
-        uses: Azure/data-factory-deploy-action@v1.2.0
-        with:
-          resourceGroupName: Dudziak
-          dataFactoryName: test-adf-deploy-prod
-          armTemplateFile: ./test-adf-deploy-dev/ARMTemplateForFactory.json
+      #- name: Deploy resources
+        #uses: Azure/data-factory-deploy-action@v1.2.0
+        #with:
+          #resourceGroupName: Dudziak
+          #dataFactoryName: test-adf-deploy-prod
+          #armTemplateFile: ./test-adf-deploy-dev/ARMTemplateForFactory.json
           # armTemplateParametersFile: myArmTemplateParameters.json [optional]
           # additionalParameters: 'key1=value key2=value keyN=value' [optional]
           # skipAzModuleInstallation: true [optional]
