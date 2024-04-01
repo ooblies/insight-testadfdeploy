@@ -8,6 +8,7 @@ jobs:
   deploy:
     runs-on: windows-latest
     steps:
+      # Check out adf_publish branch
       - name: Checkout
         uses: actions/checkout@v4
         with:
@@ -20,6 +21,11 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           enable-AzPSSession: true 
 
+      # Stop all running triggers
+      - name: Stop Triggers
+        shell: pwsh
+        run: ./.github/workflows/StopTriggers.ps1 -dataFactoryName test-adf-deploy-prod -resourceGroupName test-adf-deploy
+        
       # Deploy ARM Template
       - name: Deploy ARM Template
         uses: Azure/arm-deploy@v1.0.6
