@@ -25,6 +25,9 @@ jobs:
       - name: Install Az PowerShell module
         run: Install-Module -Name Az.DataLakeAnalytics -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
         shell: pwsh
+      - name: Install Az PowerShell module
+        run: Install-Module -Name Az.DataLakeStore -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
+        shell: pwsh
 
       # Deploy ARM template to new data factory
       - name: Deploy resources
