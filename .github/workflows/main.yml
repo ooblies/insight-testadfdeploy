@@ -63,7 +63,7 @@ jobs:
         with:
           resourceGroupName: Dudziak
           dataFactoryName: test-adf-deploy-prod
-          # armTemplateFile: test-adf-deploy-dev/ARMTemplateForFactory.json
+          armTemplateFile: ./test-adf-deploy-dev/ARMTemplateForFactory.json
           # armTemplateParametersFile: myArmTemplateParameters.json [optional]
           # additionalParameters: 'key1=value key2=value keyN=value' [optional]
           # skipAzModuleInstallation: true [optional]
