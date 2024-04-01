@@ -1,6 +1,4 @@
-﻿# You can write your azure powershell scripts inline here. 
-# You can also pass predefined and custom variables to this script using arguments
+﻿param ($dataFactoryName, $resourceGroupName)
 
-$triggersADF = Get-AzDataFactoryV2Trigger -DataFactoryName "lens-adf-3450" -ResourceGroupName "rg-lens-prod"
-
-$triggersADF | ForEach-Object { Start-AzDataFactoryV2Trigger -ResourceGroupName "rg-lens-prod" -DataFactoryName "lens-adf-3450" -Name $_.name -Force }
+$triggersADF = Get-AzDataFactoryV2Trigger -DataFactoryName dataFactoryName -ResourceGroupName $resourceGroupName
+$triggersADF | ForEach-Object { Start-AzDataFactoryV2Trigger -ResourceGroupName $resourceGroupName -DataFactoryName $dataFactoryName -Name $_.name -Force }
