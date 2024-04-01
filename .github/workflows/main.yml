@@ -29,4 +29,4 @@ jobs:
           armTemplateFile: myArmTemplate.json
           # armTemplateParametersFile: myArmTemplateParameters.json [optional]
           # additionalParameters: 'key1=value key2=value keyN=value' [optional]
-          skipAzModuleInstallation: true [optional]
+          # skipAzModuleInstallation: true [optional]
