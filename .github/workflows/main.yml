@@ -1,0 +1,25 @@
+name: pushADFtoPROD
+on:
+  workflow_dispatch
+  #push:
+    #branches:
+      #- adf_publish
+jobs:
+  deploy-adf:
+    runs-on: windows-latest
+    steps:
+      - name: Login via Az module
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true 
+    
+      - name: Deploy resources
+        uses: Azure/data-factory-deploy-action@v1.2.0
+        with:
+          resourceGroupName: Dudziak
+          dataFactoryName: testdeployadf_prod
+          armTemplateFile: myArmTemplate.json
+          # armTemplateParametersFile: myArmTemplateParameters.json [optional]
+          # additionalParameters: 'key1=value key2=value keyN=value' [optional]
+          # skipAzModuleInstallation: true [optional]
