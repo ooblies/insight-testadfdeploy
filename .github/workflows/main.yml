@@ -8,6 +8,9 @@ jobs:
   deploy:
     runs-on: windows-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@adf_publish  
+    
       # Log into Azure via Service Principal
       - name: Login via Az module
         uses: azure/login@v1
@@ -43,7 +46,7 @@ jobs:
         with: 
           scope: 'resourcegroup'
           resourceGroupName: 'test-adf-deploy'
-          template: ARMTemplateForFactory.json
+          template: ./test-adf-deploy-dev/ARMTemplateForFactory.json
           deploymentMode: Incremental
           parameters: factoryName=test-adf-deploy-prod
           
