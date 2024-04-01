@@ -38,4 +38,9 @@ jobs:
           resourceGroupName: 'test-adf-deploy'
           template: ./test-adf-deploy-dev/ARMTemplateForFactory.json
           deploymentMode: Incremental
-          parameters: factoryName=test-adf-deploy-prod          
+          parameters: factoryName=test-adf-deploy-prod        
+          
+      # Start all triggers
+      - name: Start Triggers
+        shell: pwsh
+        run: ./.github/workflows/StartTriggers.ps1 -dataFactoryName test-adf-deploy-prod -resourceGroupName test-adf-deploy
