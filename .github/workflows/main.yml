@@ -17,7 +17,12 @@ jobs:
           
       # Manually install AZ Powershell module to work around error in data-factory-deploy-action
       - name: Install Az PowerShell module
-        run: Install-Module -Name Az.DataFactory -Scope CurrentUser -Repository PSGallery -Force
+        run: Install-Module -Name Az.DataFactory -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
+        shell: pwsh
+        
+      # Manually install AZ billing module to work around error in data-factory-deploy-action
+      - name: Install Az PowerShell module
+        run: Install-Module -Name Az.Billing -AllowClobber -Scope CurrentUser -Repository PSGallery -Force
         shell: pwsh
 
       # Deploy ARM template to new data factory
